@@ -57,4 +57,4 @@ I was inspired by this vimeo video. On top of that, I was also inspired by these
    - The use of a button for play/pause functionality is a common approach in interactive visualizations to control audio playback.
 
 
-With these steps and methods, the code implements dynamic circle animation as well as interactive features.
+**With these steps and methods, the code implements dynamic circle animation as well as interactive features.**
