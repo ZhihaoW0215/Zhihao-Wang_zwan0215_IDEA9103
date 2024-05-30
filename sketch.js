@@ -53,7 +53,7 @@ class Circle {
 
   drawPattern(diameter) {
     //A random integer is generated to determine the number of patterns
-    let numPatterns = int(random(10, 20));
+    let numPatterns = int(random(5, 15));
     //Draw each pattern in a loop
     for (let i = 0; i < numPatterns; i++) {
       //Calculate the Angle of the current pattern
@@ -95,6 +95,8 @@ class Circle {
 function setup() {
   // Create a canvas with the window's width and height
   createCanvas(windowWidth, windowHeight);
+ 
+
   noStroke();
   // Create an amplitude analyzer object
   analyzer = new p5.Amplitude();
@@ -126,7 +128,7 @@ function draw() {
     // Get the average (root mean square) amplitude
     let rms = analyzer.getLevel();
     // Scale factor based on volume
-    let scaleFactor = 1 + rms * 3;
+    let scaleFactor = 1+ rms * 1.2;
 
     // Loop through dynamic circles and draw them with scaling
     for (let circle of dynamicCircles) {
@@ -177,7 +179,7 @@ function drawStaticCircles() {
 // Draw background pattern
 function drawBackgroundPattern() {
   //Define the number of background circles
-  let bgCircles = 100;
+  let bgCircles = 50;
   //Loop the background circle
   for (let i = 0; i < bgCircles; i++) {
     fill(randomWarmColor(50));
