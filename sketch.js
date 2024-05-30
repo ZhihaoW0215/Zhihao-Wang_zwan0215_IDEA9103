@@ -1,14 +1,15 @@
-//Defines an empty array circles to store all created circular objects.
 let song, analyzer;
+let circles = [];
+let isPlaying = false;
+let dynamicCircles = [];
 
+//Defines an empty array circles to store all created circular objects.
 function preload() {
   //audio file from freesound https://freesound.org/people/multitonbits/sounds/383935/?
   //licensed under the Creative Commons 0 License
   //let's load the sound file in preload
   song = loadSound('assets/383935__multitonbits__bs_electricity-bass-2.wav');
 }
-
-let circles = [];
 
 //Defines a Circle class for creating and managing circular objects
 class Circle {
@@ -20,7 +21,7 @@ class Circle {
     this.type = type;
   }
 
-  draw() {
+  draw(scaleFactor = 1) {
     //Randomly generate an integer that determines the number of layers of the circle
     let numLayers = int(random(3, 6));
    
@@ -91,7 +92,6 @@ class Circle {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //Make the draw function execute only once
-  noLoop();
   noStroke();
   analyzer = new p5.Amplitude();
 
@@ -108,6 +108,11 @@ function setup() {
   //We set the action of the button by choosing what action and then a function to run
   //In this case, we want to run the function play_pause when the button is pressed
   button.mousePressed(play_pause);
+
+  // Initialize circles
+  initializeCircles();
+  // Draw static circles initially
+  drawStaticCircles();
 }
 
 function draw() {
