@@ -10,7 +10,7 @@ function preload() {
   //audio file from freesound https://freesound.org/people/multitonbits/sounds/383935/?
   //licensed under the Creative Commons 0 License
   //let's load the sound file in preload
-  song = loadSound('assets/383935__multitonbits__bs_electricity-bass-2.wav');
+  song = loadSound('assets/350956__matucha__rain_attic_03.wav');
 }
 
 //Defines a Circle class for creating and managing circular objects
@@ -128,7 +128,7 @@ function draw() {
     // Get the average (root mean square) amplitude
     let rms = analyzer.getLevel();
     // Scale factor based on volume
-    let scaleFactor = 1 + rms * 1.2;
+    let scaleFactor = 1 + rms * 1.4;
 
     // Loop through dynamic circles and draw them with scaling
     for (let circle of dynamicCircles) {
