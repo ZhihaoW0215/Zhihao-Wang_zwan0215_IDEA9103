@@ -22,7 +22,7 @@ The change in size of the graphic is achieved by successive adjustments of the s
 
 
 3. **Inspiration:**
-
+I was inspired by this vimeo video. On top of that, I was also inspired by these photos. I wanted the style of the umbrellas to keep changing and appear randomly in the picture.
 
 4. **Technical Explanation of Image Animation:**
 
