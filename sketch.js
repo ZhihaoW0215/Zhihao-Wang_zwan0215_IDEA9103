@@ -6,14 +6,12 @@ let isPlaying = false;
 // Defines an empty array 'dynamicCircles' to store circles that will dynamically change based on audio
 let dynamicCircles = [];
 
-//Defines an empty array circles to store all created circular objects.
 function preload() {
   //audio file from freesound https://freesound.org/people/multitonbits/sounds/383935/?
   //licensed under the Creative Commons 0 License
   //let's load the sound file in preload
   song = loadSound('assets/383935__multitonbits__bs_electricity-bass-2.wav');
 }
-
 
 //Defines a Circle class for creating and managing circular objects
 class Circle {
@@ -95,7 +93,11 @@ class Circle {
 function setup() {
   // Create a canvas with the window's width and height
   createCanvas(windowWidth, windowHeight);
- 
+
+  // Set the frame rate to slow down the animation
+  //The function of frameRate() is to set the number of frames to draw per second.
+  //This technique is from https://p5js.org/reference/#/p5/frameRate
+  frameRate(10); 
 
   noStroke();
   // Create an amplitude analyzer object
@@ -126,7 +128,7 @@ function draw() {
     // Get the average (root mean square) amplitude
     let rms = analyzer.getLevel();
     // Scale factor based on volume
-    let scaleFactor = 1+ rms * 1.2;
+    let scaleFactor = 1 + rms * 1.2;
 
     // Loop through dynamic circles and draw them with scaling
     for (let circle of dynamicCircles) {
@@ -269,6 +271,7 @@ function randomWarmColor(alpha) {
   //Randomly return a warm color
   return colors[int(random(colors.length))];
 }
+
 function windowResized() {
   // Resize canvas to new window dimensions
   resizeCanvas(windowWidth, windowHeight);
