@@ -106,12 +106,10 @@ function setup() {
 
   //Add a button for play/pause
   //We cannot play sound automatically in p5.js, so we need to add a button to start the sound
-  let button = createButton('Play/Pause');
-
-  //set the position of the button to the bottom center
-  button.position((width - button.width) / 2, height - button.height - 2);
-  //We set the action of the button by choosing what action and then a function to run
-  //In this case, we want to run the function play_pause when the button is pressed
+  button = createButton('Play/Pause');
+  // Set the position of the button to the bottom center
+  positionButton();
+  // Set the action of the button when clicked
   button.mousePressed(play_pause);
 
   // Initialize circles
@@ -270,4 +268,16 @@ function randomWarmColor(alpha) {
   ];
   //Randomly return a warm color
   return colors[int(random(colors.length))];
+}
+function windowResized() {
+  // Resize canvas to new window dimensions
+  resizeCanvas(windowWidth, windowHeight);
+  // Redraw static circles
+  drawStaticCircles();
+  positionButton();
+}
+
+function positionButton() {
+  // Position the button at the bottom center of the window
+  button.position((windowWidth - button.width) / 2, windowHeight - button.height - 2);
 }
