@@ -1,5 +1,5 @@
 # Zhihao Wang_zwan0215_IDEA9103
-### This is functioning prototype
+### This is the functioning prototype
 
 
 # How to interact with the work:
