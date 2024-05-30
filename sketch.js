@@ -11,6 +11,7 @@ function preload() {
   song = loadSound('assets/383935__multitonbits__bs_electricity-bass-2.wav');
 }
 
+
 //Defines a Circle class for creating and managing circular objects
 class Circle {
   //Constructor that initializes the coordinates, size and type of the circle.
@@ -28,7 +29,7 @@ class Circle {
     //Loop through each layer
     for (let i = numLayers; i > 0; i--) {
       //Calculates the size of the current layer
-      let size = (this.size / numLayers) * i;
+      let size = (this.size / numLayers) * i * scaleFactor;
       //create gradient color
       let gradientColor = lerpColor(randomWarmColor(200), randomWarmColor(200), i / numLayers);
       //Randomly decide whether to fill or stroke
@@ -48,7 +49,6 @@ class Circle {
   }
 
   drawPattern(diameter) {
-
     //A random integer is generated to determine the number of patterns
     let numPatterns = int(random(10, 20));
     //Draw each pattern in a loop
@@ -90,9 +90,10 @@ class Circle {
 }
 
 function setup() {
+  // Create a canvas with the window's width and height
   createCanvas(windowWidth, windowHeight);
-  //Make the draw function execute only once
   noStroke();
+  // Create an amplitude analyzer object
   analyzer = new p5.Amplitude();
 
   // Connect the input of the analyzer to the song
@@ -103,7 +104,6 @@ function setup() {
   let button = createButton('Play/Pause');
 
   //set the position of the button to the bottom center
-
   button.position((width - button.width) / 2, height - button.height - 2);
   //We set the action of the button by choosing what action and then a function to run
   //In this case, we want to run the function play_pause when the button is pressed
@@ -116,10 +116,27 @@ function setup() {
 }
 
 function draw() {
-  drawBackgroundPattern();
+  if (isPlaying) {
+    background(20, 10, 0);
+    drawBackgroundPattern();
+
+    // Get the average (root mean square) amplitude
+    let rms = analyzer.getLevel();
+    // Scale factor based on volume
+    let scaleFactor = 1 + rms * 3;
+
+    // Loop through dynamic circles and draw them with scaling
+    for (let circle of dynamicCircles) {
+      circle.draw(scaleFactor);
+    }
+  }
+}
+
+// Initialize circles
+function initializeCircles() {
   //Define the number of circles
   let numCircles = 50;
-  
+
   //Loop to create and draw each circle
   for (let i = 0; i < numCircles; i++) {
     //Randomly generate the size of the circle
@@ -129,16 +146,31 @@ function draw() {
     //If the circle is successfully created, it is added to the array and drawn
     if (newCircle) {
       circles.push(newCircle);
+      //Randomly decide if the circle is dynamic
+      if (random() > 0.5) {
+        dynamicCircles.push(newCircle);
+      }
       //Create the type of number
-      let type = int(random(6)); 
+      let type = int(random(4));
       newCircle.type = type;
-      newCircle.draw();
     }
   }
 }
 
-function drawBackgroundPattern() {
+// Draw static circles initially
+function drawStaticCircles() {
   background(20, 10, 0);
+  // Draw background pattern with random circles
+  drawBackgroundPattern();
+  for (let circle of circles) {
+    if (!dynamicCircles.includes(circle)) {
+      circle.draw(1);
+    }
+  }
+}
+
+// Draw background pattern
+function drawBackgroundPattern() {
   //Define the number of background circles
   let bgCircles = 100;
   //Loop the background circle
@@ -152,7 +184,7 @@ function drawBackgroundPattern() {
 function createNonOverlappingCircle(maxSize) {
   //Number of initialization attempts
   let attempts = 0;
-  //Number of maximum attemps
+  //Number of maximum attempts
   let maxAttempts = 1000;
 
   //Try to create circles that do not overlap
@@ -209,12 +241,15 @@ function drawPolygon(x, y, radius, npoints) {
 function play_pause() {
   if (song.isPlaying()) {
     song.stop();
+    isPlaying = false;
   } else {
     //we can use song.play() here if we want the song to play once
     //In this case, we want the song to loop, so we call song.loop()
     song.loop();
+    isPlaying = true;
   }
 }
+
 //Generate random warm colors, alpha means the transparency level of a color(0-255)
 //This technique is from https://p5js.org/reference/#/p5/alpha 
 function randomWarmColor(alpha) {
