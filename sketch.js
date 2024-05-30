@@ -1,6 +1,9 @@
 let song, analyzer;
+//Defines an empty array circles to store all created circular objects.
 let circles = [];
+// Boolean flag to check if the song is playing
 let isPlaying = false;
+// Defines an empty array 'dynamicCircles' to store circles that will dynamically change based on audio
 let dynamicCircles = [];
 
 //Defines an empty array circles to store all created circular objects.
@@ -162,7 +165,9 @@ function drawStaticCircles() {
   background(20, 10, 0);
   // Draw background pattern with random circles
   drawBackgroundPattern();
+  // Loop through all the circles in the circles array
   for (let circle of circles) {
+    // Check if the current circle is not in the dynamicCircles array
     if (!dynamicCircles.includes(circle)) {
       circle.draw(1);
     }
