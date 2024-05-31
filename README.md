@@ -36,19 +36,19 @@ I was inspired by this vimeo video. On top of that, I was also inspired by these
    - The number of layers is still randomized, but it's between 3 to 6 layers instead of 3 to 5.
    - The number of patterns drawn on each layer is also randomized, ranging from 5 to 15 instead of 10 to 20.
 
-2. **Setup and Draw Functions:**
+   2. **Setup and Draw Functions:**
 
    - The `setup` function now sets `frameRate(10)` to slow down the animation instead of `noLoop()`.
    - In the `draw` function, the background pattern is drawn before drawing the circles.
    - The `draw` function dynamically adjusts the size and style of `dynamicCircles` based on the audio input.
 
-3. **Additional Features:**
+   3. **Additional Features:**
 
     - The `initializeCircles` function remains and is responsible for initializing the circles.
     - The button for play/pause functionality remains.
     - The `windowResized` function handles canvas resizing and repositions the button accordingly.
 
-4. **Techniques and References:**
+   4. **Techniques and References:**
 
    - The techniques used in this code are based on p5.js functions and concepts, including drawing shapes, handling randomness, and managing objects.
    - The `drawPolygon` function draws polygons using the `beginShape()` and `endShape(CLOSE)` functions, as described in the p5.js reference.
